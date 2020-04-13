@@ -1,0 +1,39 @@
+{% load tz %}
+<form action="" method="post"> {% csrf_token %}
+    <label for="email">Email</label>
+    <input type="text" id="email" name='email' >
+    <label for="subjects">Subjects</label>
+    <input type="text" id="subjects" name="subjects" >
+    <label for="messages">Messages</label>
+    <input type="text" id="messages" name="messages" >
+    <input type="submit" value="Submit">
+</form>
+
+<hr>
+<table>
+    <tr>
+        <th>S.no</th>
+        <th>Email</th>
+        <th>Subjects</th>
+        <th>Message</th>
+        <th>Created_on</th>
+    </tr>
+    {% for item in phone_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.subjects }}</td>
+        <td>{{ item.messages }}</td>
+        <td>
+            {% timezone "Asia/Kolkata" %}
+            {{ item.created}}
+            {% endtimezone %}
+        </td>
+        <td>
+        <a href="{% url 'c_form_delete' item.id %}"> delete </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+
+</table>
